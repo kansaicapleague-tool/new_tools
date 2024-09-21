@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="関西キャップリーグ1部順位表">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <h1>関西キャップリーグ1部順位表</h1>
+    </header>
+    <main>
+        <ol>
+            <li>勝ち点が多い</li>
+            <li>勝率が高い</li>
+            <li>勝利数が多い</li>
+            <li>不戦敗数が少ない</li>
+            <li>当該チーム間の対戦成績</li>
+            <li>当該チーム間の得失点差</li>
+            <li>総得失点差</li>
+            <li>チーム投手防御率</li>
+            <li>チーム打率</li>
+        </ol>
+        <!-- 入力フォーム -->
+        <label>1位チーム:<select id="firstTeam">
+            <option value="龍谷A">龍谷A</option>
+            <option value="京大A">京大A</option>
+            <option value="京大B">京大B</option>
+            <option value="大阪大学">大阪大学</option>
+            <option value="大阪公立大学">大阪公立大学</option>
+            <option value="賀茂別雷">賀茂別雷</option>
+         </select></label>
+        <label>勝:<input type="number" id="firstTeamWin" step="1"></label>
+        <label>負:<input type="number" id="firstTeamLose" step="1"></label>
+        <label>分:<input type="number" id="firstTeamDraw" step="1"></label><br>
+        <label>2位チーム:<select id="secondTeam">
+            <option value="龍谷A">龍谷A</option>
+            <option value="京大A">京大A</option>
+            <option value="京大B">京大B</option>
+            <option value="大阪大学">大阪大学</option>
+            <option value="大阪公立大学">大阪公立大学</option>
+            <option value="賀茂別雷">賀茂別雷</option>
+         </select></label>
+        <label>勝:<input type="number" id="secondTeamWin" step="1"></label>
+        <label>負:<input type="number" id="secondTeamLose" step="1"></label>
+        <label>分:<input type="number" id="secondTeamDraw" step="1"></label><br>
+        <label>3位チーム:<select id="thirdTeam">
+            <option value="龍谷A">龍谷A</option>
+            <option value="京大A">京大A</option>
+            <option value="京大B">京大B</option>
+            <option value="大阪大学">大阪大学</option>
+            <option value="大阪公立大学">大阪公立大学</option>
+            <option value="賀茂別雷">賀茂別雷</option>
+         </select></label>
+        <label>勝:<input type="number" id="thirdTeamWin" step="1"></label>
+        <label>負:<input type="number" id="thirdTeamLose" step="1"></label>
+        <label>分:<input type="number" id="thirdTeamDraw" step="1"></label><br>
+        <label>4位チーム:<select id="forthTeam">
+            <option value="龍谷A">龍谷A</option>
+            <option value="京大A">京大A</option>
+            <option value="京大B">京大B</option>
+            <option value="大阪大学">大阪大学</option>
+            <option value="大阪公立大学">大阪公立大学</option>
+            <option value="賀茂別雷">賀茂別雷</option>
+         </select></label>
+        <label>勝:<input type="number" id="forthTeamWin" step="1"></label>
+        <label>負:<input type="number" id="forthTeamLose" step="1"></label>
+        <label>分:<input type="number" id="forthTeamDraw" step="1"></label><br>
+        <label>5位チーム:<select id="fifthTeam">
+            <option value="龍谷A">龍谷A</option>
+            <option value="京大A">京大A</option>
+            <option value="京大B">京大B</option>
+            <option value="大阪大学">大阪大学</option>
+            <option value="大阪公立大学">大阪公立大学</option>
+            <option value="賀茂別雷">賀茂別雷</option>
+         </select></label>
+        <label>勝:<input type="number" id="fifthTeamWin" step="1"></label>
+        <label>負:<input type="number" id="fifthTeamLose" step="1"></label>
+        <label>分:<input type="number" id="fifthTeamDraw" step="1"></label><br>
+        <label>6位チーム:<select id="sixthTeam">
+            <option value="龍谷A">龍谷A</option>
+            <option value="京大A">京大A</option>
+            <option value="京大B">京大B</option>
+            <option value="大阪大学">大阪大学</option>
+            <option value="大阪公立大学">大阪公立大学</option>
+            <option value="賀茂別雷">賀茂別雷</option>
+         </select></label>
+        <label>勝:<input type="number" id="sixthTeamWin" step="1"></label>
+        <label>負:<input type="number" id="sixthTeamLose" step="1"></label>
+        <label>分:<input type="number" id="sixthTeamDraw" step="1"></label><br>
+        <input type="button" value="変更(はじめに押す)" id="changeButton">
+        <input type="button" value="確認(2番目に押す)" id="checkButton">
+        <input type="button" value="ダウンロード(最後に押す)" id="downloadButton"><br>
+
+    </main>
+    <div id="target" class="image">
+        <img src="firststandingsbackground.jpg" />
+
+        <p id="firstTeamname"></p>
+        <p id="firstGameText"></p>
+        <p id="firstWin"></p>
+        <p id="firstLose"></p>
+        <p id="firstDraw"></p>
+        <p id="firstPoint"></p>
+
+        <p id="secondTeamname"></p>
+        <p id="secondGameText"></p>
+        <p id="secondWin"></p>
+        <p id="secondLose"></p>
+        <p id="secondDraw"></p>
+        <p id="secondPoint"></p>
+
+        <p id="thirdTeamname"></p>
+        <p id="thirdGameText"></p>
+        <p id="thirdWin"></p>
+        <p id="thirdLose"></p>
+        <p id="thirdDraw"></p>
+        <p id="thirdPoint"></p>
+
+        <p id="forthTeamname"></p>
+        <p id="forthGameText"></p>
+        <p id="forthWin"></p>
+        <p id="forthLose"></p>
+        <p id="forthDraw"></p>
+        <p id="forthPoint"></p>
+
+        <p id="fifthTeamname"></p>
+        <p id="fifthGameText"></p>
+        <p id="fifthWin"></p>
+        <p id="fifthLose"></p>
+        <p id="fifthDraw"></p>
+        <p id="fifthPoint"></p>
+
+        <p id="sixthTeamname"></p>
+        <p id="sixthGameText"></p>
+        <p id="sixthWin"></p>
+        <p id="sixthLose"></p>
+        <p id="sixthDraw"></p>
+        <p id="sixthPoint"></p>
+        <p id="now"></p>
+    </div>
+    
+    <a id="getImage" href="" style="display: none"></a>
+
+    <script src="index.js"></script>
+</body>
+</html>

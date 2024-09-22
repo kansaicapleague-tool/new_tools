@@ -122,7 +122,7 @@ function changeClick() {
             teamPoint.push(teamWin[i] * winPoint + teamLose[i] * losePoint + teamDraw[i] * drawPoint);
         }
 
-        sort(teamPoint, teamRate, teamWin);
+        check(teamPoint, teamRate, teamWin);
 
         ctx.fillStyle = "#000000";
 
@@ -155,7 +155,7 @@ function create() {
     document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
 
-function sort(teamPoint, teamRate, teamWin) {
+function check(teamPoint, teamRate, teamWin) {
     for (let i = 0; i < teamNum - 1; i++) {
         if (teamPoint[i] < teamPoint[i + 1]) {
             alert(Number(i + 1) + '位と' + Number(i + 2) +'位の勝ち点順位が違います。');

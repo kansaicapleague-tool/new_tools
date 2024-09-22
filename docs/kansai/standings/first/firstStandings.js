@@ -1,27 +1,14 @@
+const league = "関西キャップリーグ1部"
 const season = "2024年秋季";
-const teamNum = 6;
 const teams = ["龍谷大学A", "京都大学A", "大阪公立大A", "京都大学B", "同志社大学A", "京阪神ジェネシス"];
+const teamNum = teams.length;
 
-const winPoint = 5;
-const drawPoint = 3;
-const losePoint = 1;
+const width = 1920;
+const height = 1080;
 
-function checkClick(){
-    html2canvas(document.getElementById("target")).then(canvas => {
-        document.body.appendChild(canvas)
-        canvas.id = "canvas"
-    });
-}
-
-function downloadClick(){
-    let canvas = document.getElementById("canvas");
-    const name = 'firststandings.png';
-    const a = document.createElement('a');
-
-    a.href = canvas.toDataURL();
-    a.download = name;
-    a.click();
-}
+const winPoint = 3;
+const drawPoint = 1;
+const losePoint = 0;
 
 // 非同期処理を実行する async 関数を定義
 async function loadAndAddFont() {
@@ -40,6 +27,7 @@ async function loadAndAddFont() {
             if (!matchUrls) throw new Error("フォントが見つかりませんでした");
   
             for (const url of matchUrls) {
+
             // url() の中の URL を取得
             const fontUrl = url.slice(4, -1).replace(/['"]/g, ''); // url("...") から "..." を取り出す
     
@@ -75,15 +63,15 @@ let year = today.getFullYear();
 let month = today.getMonth()+1;
 let day = today.getDate();
 let now = year + "年" + month + "月" + day + "日時点"; // 日付フォーマット
-let title = "関西キャップリーグ1部 " + season + "順位表";
+let title = league + " " + season + "順位表";
 
 const image = new Image();
 changeClick();
 
 function changeClick() {
     image.addEventListener("load",function (){
-        ctx.clearRect(0, 0, 1920, 1080)
-        ctx.drawImage(image, 0, 0, 1920, 1080); // 背景画像の描画
+        ctx.clearRect(0, 0, width, height)
+        ctx.drawImage(image, 0, 0, width, height); // 背景画像の描画
         ctx.globalCompositeOperation = "source-over"; // デフォルト
         ctx.shadowColor = "#555"; // 影設定
         ctx.shadowOffsetX = 3;
@@ -91,8 +79,8 @@ function changeClick() {
         ctx.shadowBlur = 5;
         ctx.fillStyle = "#FFFFFF";
         ctx.font = "65px Zen Kaku Gothic New";
-        ctx.textAlign = "left"
-        ctx.fillText(title, 425, 150); // タイトルの描画
+        ctx.textAlign = "center"
+        ctx.fillText(title, width / 2 + 70, 150); // タイトルの描画
         ctx.beginPath();
         ctx.fillStyle = "#FFFFFF";
         ctx.fillRect(425, 155, 1210, 3); // タイトル下線部の描画
@@ -103,21 +91,28 @@ function changeClick() {
         ctx.font = "50px Zen Kaku Gothic New";
         ctx.fillText(now, 1500, 1070); // 現在の日付の描画
 
-        let teamLank = [];
+        let teamName = [];
         let teamWin = [];
         let teamLose = [];
         let teamDraw = [];
         let teamGame = [];
         let teamPoint = [];
+        let teamRate = [];
 
         for (var i = 0; i < teamNum; i++) {
             if (document.getElementById('team' + i).value != null && document.getElementById('teamWin' + i).value != null && document.getElementById('teamLose' + i).value != null && document.getElementById('teamDraw' + i).value != null) {
-                teamLank.push(document.getElementById('team' + i).value);
+                teamName.push(document.getElementById('team' + i).value);
                 teamWin.push(Number(document.getElementById('teamWin' + i).value));
                 teamLose.push(Number(document.getElementById('teamLose' + i).value));
                 teamDraw.push(Number(document.getElementById('teamDraw' + i).value));
+                if (teamWin[i] + teamLose[i] > 0) {
+                    teamRate.push(teamWin[i]/(teamWin[i] + teamLose[i]));
+                } else {
+                    teamRate.push(0);
+                }
             } else {
-
+                alert('値を入力してください。');
+                return false;
             }
         }
 
@@ -126,12 +121,15 @@ function changeClick() {
             teamPoint.push(teamWin[i] * winPoint + teamLose[i] * losePoint + teamDraw[i] * drawPoint);
         }
 
+        sort(teamPoint, teamRate, teamWin);
+
         ctx.fillStyle = "#000000";
-        ctx.font = "100px Zen Kaku Gothic New";
 
         for (var i = 0; i < teamNum; i++) {
+            ctx.font = "96px Zen Kaku Gothic New";
             ctx.textAlign = "left";
-            ctx.fillText(teamLank[i], 260, 370 + (127 * i));
+            ctx.fillText(teamName[i], 260, 368 + (127 * i));
+            ctx.font = "100px Zen Kaku Gothic New";
             ctx.textAlign = "center";
             ctx.fillText(teamGame[i], 1137, 370 + (127 * i));
             ctx.fillText(teamWin[i], 1302, 370 + (127 * i));
@@ -140,25 +138,46 @@ function changeClick() {
             ctx.fillText(teamPoint[i], 1806, 370 + (127 * i));
         }
     });
+    image.crossOrigin = "anonymous";
     image.src = imagePath;
 }
 
 function create() {
     for (var i = 0; i < teamNum; i++) {
         document.write('<label>' + Number(i + 1) +'位チーム：<select id="team' + i +'"></select></label>');
-        document.write('<label>勝:<input type="number" id="teamWin' + i + '" step="1"></label>');
-        document.write('<label>負:<input type="number" id="teamLose' + i + '" step="1"></label>');
-        document.write('<label>分:<input type="number" id="teamDraw' + i + '" step="1"></label><br>');   
+        document.write('<label>勝:<input type="number" id="teamWin' + i + '" step="1" value="0"></label>');
+        document.write('<label>負:<input type="number" id="teamLose' + i + '" step="1" value="0"></label>');
+        document.write('<label>分:<input type="number" id="teamDraw' + i + '" step="1" value="0"></label><br>');   
     }
-    document.write('<Button onClick="changeClick()">変更(はじめに押す)</Button>')
-    document.write('<Button onClick="checkClick()">確認(2番目に押す)</Button>')
+    document.write('<Button onClick="changeClick()">更新(入力後に押す)</Button>')
     document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>')
     document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
 
-// let changeButton = document.getElementById('changeButton');
-// changeButton.addEventListener('click', changeClick);
-// let checkButton = document.getElementById('checkButton');
-// checkButton.addEventListener('click', checkClick);
-// let downloadButton = document.getElementById('downloadButton');
-// downloadButton.addEventListener('click', downloadClick)
+function sort(teamPoint, teamRate, teamWin) {
+    for (let i = 0; i < teamNum - 1; i++) {
+        if (teamPoint[i] < teamPoint[i + 1]) {
+            alert(Number(i + 1) + '位と' + Number(i + 2) +'位の勝ち点順位が違います。');
+            return false;
+        } else if (teamPoint[i] == teamPoint[i + 1]) {
+            if (teamRate[i] < teamRate[i + 1]) {
+                alert(Number(i + 1) + '位と' + Number(i + 2) +'位の勝率順位が違います。');
+                return false;
+            } else if (teamRate[i] == teamRate[i + 1]) {
+                if (teamWin[i] < teamWin[i + 1]) {
+                    alert(Number(i + 1) + '位と' + Number(i + 2) +'位の勝利数順位が違います。');
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+function downloadClick(){
+    const dataURL = canvas.toDataURL("image/jpeg", 1.0);
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'kansaiFirstStandings_' + year + month + day +'.jpeg'; // ファイル名を指定
+    link.click();
+}

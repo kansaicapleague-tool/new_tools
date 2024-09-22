@@ -89,7 +89,8 @@ function changeClick() {
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 0;
         ctx.font = "50px Zen Kaku Gothic New";
-        ctx.fillText(now, 1500, 1070); // 現在の日付の描画
+        ctx.textAlign = "right"
+        ctx.fillText(now, width - 20, 1070); // 現在の日付の描画
 
         let teamName = [];
         let teamWin = [];

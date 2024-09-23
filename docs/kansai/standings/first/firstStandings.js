@@ -10,6 +10,22 @@ const winPoint = 3;
 const drawPoint = 1;
 const losePoint = 0;
 
+// async 関数を呼び出す
+loadAndAddFont();
+create();
+const canvas = document.querySelector('.canvas'); // canvasの取得
+let imagePath = "firstStandingsBackground.jpg"; // 背景画像の取得
+const ctx = canvas.getContext("2d"); // ctxの取得
+let today = new Date(); // 現在の日付を取得
+let year = today.getFullYear();
+let month = today.getMonth()+1;
+let day = today.getDate();
+let now = year + "年" + month + "月" + day + "日時点"; // 日付フォーマット
+let title = league + " " + season + "順位表";
+const image = new Image();
+changeClick();
+appendOption();
+
 // 非同期処理を実行する async 関数を定義
 async function loadAndAddFont() {
     const exampleFontFamilyName = "Zen Kaku Gothic New"; // 取得したいGoogleフォント名
@@ -44,29 +60,17 @@ async function loadAndAddFont() {
     }
 }
 
-// async 関数を呼び出す
-loadAndAddFont();
-create();
-
-for (var i = 0; i < teamNum; i++) {
-    for (var j = 0; j < teamNum; j++) {
-        let newOption = new Option(teams[j], teams[j]);
-        document.getElementById('team' + i).append(newOption);
+function create() {
+    for (var i = 0; i < teamNum; i++) {
+        document.write('<label>' + Number(i + 1) +'位チーム：<select id="team' + i +'"></select></label>');
+        document.write('<label>勝:<input type="number" id="teamWin' + i + '" step="1" value="0"></label>');
+        document.write('<label>負:<input type="number" id="teamLose' + i + '" step="1" value="0"></label>');
+        document.write('<label>分:<input type="number" id="teamDraw' + i + '" step="1" value="0"></label><br>');   
     }
+    document.write('<Button onClick="changeClick()">更新(入力後に押す)</Button>')
+    document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>')
+    document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
-
-const canvas = document.querySelector('.canvas'); // canvasの取得
-let imagePath = "firstStandingsBackground.jpg"; // 背景画像の取得
-const ctx = canvas.getContext("2d"); // ctxの取得
-let today = new Date(); // 現在の日付を取得
-let year = today.getFullYear();
-let month = today.getMonth()+1;
-let day = today.getDate();
-let now = year + "年" + month + "月" + day + "日時点"; // 日付フォーマット
-let title = league + " " + season + "順位表";
-
-const image = new Image();
-changeClick();
 
 function changeClick() {
     image.addEventListener("load",function (){
@@ -143,16 +147,13 @@ function changeClick() {
     image.src = imagePath;
 }
 
-function create() {
+function appendOption() {
     for (var i = 0; i < teamNum; i++) {
-        document.write('<label>' + Number(i + 1) +'位チーム：<select id="team' + i +'"></select></label>');
-        document.write('<label>勝:<input type="number" id="teamWin' + i + '" step="1" value="0"></label>');
-        document.write('<label>負:<input type="number" id="teamLose' + i + '" step="1" value="0"></label>');
-        document.write('<label>分:<input type="number" id="teamDraw' + i + '" step="1" value="0"></label><br>');   
+        for (var j = 0; j < teamNum; j++) {
+            let newOption = new Option(teams[j], teams[j]);
+            document.getElementById('team' + i).append(newOption);
+        }
     }
-    document.write('<Button onClick="changeClick()">更新(入力後に押す)</Button>')
-    document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>')
-    document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
 
 function check(teamPoint, teamRate, teamWin) {

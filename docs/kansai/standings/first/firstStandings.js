@@ -1,6 +1,7 @@
 const league = "関西キャップリーグ1部"
 const season = "2024年秋季";
 const teams = ["龍谷大学A", "京都大学A", "大阪公立大A", "京都大学B", "同志社大学A", "京阪神ジェネシス"];
+const teamLogoPath = ["../../teamLogo/RuCBC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/COMUC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/doshisha.jpg", "../../teamLogo/keihanshin.jpg"];
 const teamNum = teams.length;
 
 const width = 1920;
@@ -22,7 +23,10 @@ let month = today.getMonth()+1;
 let day = today.getDate();
 let now = year + "年" + month + "月" + day + "日時点"; // 日付フォーマット
 let title = league + " " + season + "順位表";
-const image = new Image();
+const background = new Image();
+let count = 0;
+var logoObj = [];
+loadLogo();
 changeClick();
 appendOption();
 
@@ -73,9 +77,9 @@ function create() {
 }
 
 function changeClick() {
-    image.addEventListener("load",function (){
+    background.addEventListener("load",function (){
         ctx.clearRect(0, 0, width, height)
-        ctx.drawImage(image, 0, 0, width, height); // 背景画像の描画
+        ctx.drawImage(background, 0, 0, width, height); // 背景画像の描画
         ctx.globalCompositeOperation = "source-over"; // デフォルト
         ctx.shadowColor = "#555"; // 影設定
         ctx.shadowOffsetX = 3;
@@ -97,6 +101,7 @@ function changeClick() {
         ctx.fillText(now, width - 20, 1070); // 現在の日付の描画
 
         let teamName = [];
+        let teamLogo = [];
         let teamWin = [];
         let teamLose = [];
         let teamDraw = [];
@@ -122,6 +127,14 @@ function changeClick() {
         }
 
         for (var i = 0; i < teamNum; i++) {
+            for (var j = 0; j < teamNum; j++) {
+                if (teamName[i] == teams[j]) {
+                    teamLogo.push(logoObj[j]);
+                }
+            }
+        }
+
+        for (var i = 0; i < teamNum; i++) {
             teamGame.push(teamWin[i] + teamLose[i] + teamDraw[i]);
             teamPoint.push(teamWin[i] * winPoint + teamLose[i] * losePoint + teamDraw[i] * drawPoint);
         }
@@ -130,9 +143,14 @@ function changeClick() {
 
         for (var i = 0; i < teamNum; i++) {
             ctx.fillStyle = "#000000";
-            ctx.font = "96px Zen Kaku Gothic New";
             ctx.textAlign = "left";
-            ctx.fillText(teamName[i], 260, 368 + (127 * i));
+            if (teamName[i].length > 7) {
+                ctx.font = "82px Zen Kaku Gothic New";
+                ctx.fillText(teamName[i], 260, 363 + (127 * i));
+            } else {
+                ctx.font = "96px Zen Kaku Gothic New";
+                ctx.fillText(teamName[i], 260, 368 + (127 * i));
+            }
             ctx.fillStyle = "#FFFFFF";
             ctx.font = "100px Zen Kaku Gothic New";
             ctx.textAlign = "center";
@@ -142,9 +160,10 @@ function changeClick() {
             ctx.fillText(teamDraw[i], 1638, 370 + (127 * i));
             ctx.fillText(teamPoint[i], 1806, 370 + (127 * i));
         }
+        display(teamLogo);
     });
-    image.crossOrigin = "anonymous";
-    image.src = imagePath;
+    background.crossOrigin = "anonymous";
+    background.src = imagePath;
 }
 
 function appendOption() {
@@ -174,6 +193,27 @@ function check(teamPoint, teamRate, teamWin) {
         }
     }
     return true;
+}
+
+function loadLogo() {
+    var logo = new Image();
+
+    logo.addEventListener("load",function () {
+        count++;
+        logoObj.push(logo);
+        if (count >= teamNum) {
+        } else {
+            loadLogo();
+        }
+    });
+    logo.crossOrigin = "anonymous";
+    logo.src = teamLogoPath[logoObj.length];
+}
+
+function display(teamLogo) {
+    for (var i = 0; i < teamNum; i++) {
+        ctx.drawImage(teamLogo[i], 930, 282 + (127.5 * i), 100, 100)
+    }
 }
 
 function downloadClick(){

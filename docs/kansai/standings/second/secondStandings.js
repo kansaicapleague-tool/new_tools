@@ -152,12 +152,12 @@ function changeClick(block) {
                     ctx.fillText(teamName[i], 125 + (935 * block), 510 + (165 * i));
                 }
                 ctx.fillStyle = "#FFFFFF";
-                ctx.font = "100px Zen Kaku Gothic New";
+                ctx.font = "96px Zen Kaku Gothic New";
                 ctx.textAlign = "center";
                 //ctx.fillText(teamGame[i], 600 + (935 * block), 370 + (127 * i));
                 ctx.fillText(teamWin[i], 590 + (935 * block), 510 + (165 * i));
-                ctx.fillText(teamLose[i], 682 + (935 * block), 510 + (165 * i));
-                ctx.fillText(teamDraw[i], 774 + (935 * block), 510 + (165 * i));
+                ctx.fillText(teamLose[i], 682.5 + (935 * block), 510 + (165 * i));
+                ctx.fillText(teamDraw[i], 775 + (935 * block), 510 + (165 * i));
                 ctx.fillText(teamPoint[i], 892 + (935 * block), 510 + (165 * i));
             }
         }

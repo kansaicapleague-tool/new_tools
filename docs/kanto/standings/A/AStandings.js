@@ -207,7 +207,7 @@ function loadLogo() {
 
 function display(teamLogo) {
     for (var i = 0; i < teamNum; i++) {
-        ctx.drawImage(teamLogo[i], 930, 282 + (127.2 * i), 100, 100)
+        ctx.drawImage(teamLogo[i], 930, 282 + (127.5 * i), 100, 100)
     }
 }
 

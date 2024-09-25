@@ -12,8 +12,13 @@ const losePoint = 0;
 
 // async 関数を呼び出す
 loadAndAddFont();
+document.write("ブロックA<br>");
 create(0);
+document.write("ブロックB<br>");
 create(1);
+document.write(`<Button onClick="changeClick()">更新(入力後に押す)</Button>`)
+document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>')
+document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 const canvas = document.querySelector('.canvas'); // canvasの取得
 let imagePath = "secondStandingsBackground.jpg"; // 背景画像の取得
 const ctx = canvas.getContext("2d"); // ctxの取得
@@ -25,7 +30,6 @@ let now = year + "年" + month + "月" + day + "日時点"; // 日付フォー�
 let title = league + " " + season + "順位表";
 const image = new Image();
 changeClick(0);
-changeClick(1);
 appendOption(0);
 appendOption(1);
 
@@ -70,9 +74,6 @@ function create(block) {
         document.write('<label>負:<input type="number" id="teamLose' + block + i + '" step="1" value="0"></label>');
         document.write('<label>分:<input type="number" id="teamDraw' + block + i + '" step="1" value="0"></label><br>');   
     }
-    document.write(`<Button onClick="changeClick(${block})">更新(入力後に押す)</Button>`)
-    document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>')
-    document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
 
 function changeClick(block) {
@@ -88,9 +89,13 @@ function changeClick(block) {
         ctx.font = "65px Zen Kaku Gothic New";
         ctx.textAlign = "center"
         ctx.fillText(title, width / 2 + 70, 150); // タイトルの描画
+        ctx.fillText("Aブロック", width / 4, 325);
+        ctx.fillText("Bブロック", width * 3 / 4, 325);
         ctx.beginPath();
         ctx.fillStyle = "#FFFFFF";
         ctx.fillRect(425, 155, 1210, 3); // タイトル下線部の描画
+        ctx.fillRect(325, 330, 300, 3);
+        ctx.fillRect(1285, 330, 300, 3);
         ctx.shadowColor = "#000"; // 影設定リセット
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
@@ -99,52 +104,64 @@ function changeClick(block) {
         ctx.textAlign = "right"
         ctx.fillText(now, width - 20, 1070); // 現在の日付の描画
 
-        let teamName = [];
-        let teamWin = [];
-        let teamLose = [];
-        let teamDraw = [];
-        let teamGame = [];
-        let teamPoint = [];
-        let teamRate = [];
+        for (var block = 0; block <= 1; block++) {
+            let teamName = [];
+            let teamWin = [];
+            let teamLose = [];
+            let teamDraw = [];
+            let teamGame = [];
+            let teamPoint = [];
+            let teamRate = [];
 
-        for (var i = 0; i < teamNum[block]; i++) {
-            if (document.getElementById('team' + block + i).value != null && document.getElementById('teamWin' + block + i).value != null && document.getElementById('teamLose'+ block + i).value != null && document.getElementById('teamDraw' + block + i).value != null) {
-                teamName.push(document.getElementById('team' + block + i).value);
-                teamWin.push(Number(document.getElementById('teamWin' + block + i).value));
-                teamLose.push(Number(document.getElementById('teamLose' + block + i).value));
-                teamDraw.push(Number(document.getElementById('teamDraw' + block + i).value));
-                if (teamWin[i] + teamLose[block][i] > 0) {
-                    teamRate[i].push(teamWin[block][i]/(teamWin[block][i] + teamLose[block][i]));
+            for (var i = 0; i < teamNum[block]; i++) {
+                if (document.getElementById('team' + block + i).value != null && document.getElementById('teamWin' + block + i).value != null && document.getElementById('teamLose' + block + i).value != null && document.getElementById('teamDraw' + block + i).value != null) {
+                    teamName.push(document.getElementById('team' + block + i).value);
+                    teamWin.push(Number(document.getElementById('teamWin' + block + i).value));
+                    teamLose.push(Number(document.getElementById('teamLose' + block + i).value));
+                    teamDraw.push(Number(document.getElementById('teamDraw' + block + i).value));
+                    if (teamWin[i] + teamLose[i] > 0) {
+                        teamRate.push(teamWin[i]/(teamWin[i] + teamLose[i]));
+                    } else {
+                        teamRate.push(0);
+                    }
                 } else {
-                    teamRate[i].push(0);
+                    alert('値を入力してください。');
+                    return false;
                 }
-            } else {
-                alert('値を入力してください。');
-                return false;
+            }
+
+            for (var i = 0; i < teamNum[block]; i++) {
+                teamGame.push(teamWin[i] + teamLose[i] + teamDraw[i]);
+                teamPoint.push(teamWin[i] * winPoint + teamLose[i] * losePoint + teamDraw[i] * drawPoint);
+            }
+
+            check(teamPoint, teamRate, teamWin);
+
+            for (var i = 0; i < teamNum[block]; i++) {
+                ctx.fillStyle = "#000000";
+                ctx.font = "96px Zen Kaku Gothic New";
+                ctx.textAlign = "left";
+                if (teamName[i].length > 5) {
+                    ctx.font = "72px Zen Kaku Gothic New";
+                    ctx.fillText(teamName[i], 125 + (935 * block), 500 + (165 * i));
+                } else if (teamName[i].length > 4) {
+                    ctx.font = "84px Zen Kaku Gothic New";
+                    ctx.fillText(teamName[i], 125 + (935 * block), 505 + (165 * i));
+                } else {
+                    ctx.font = "96px Zen Kaku Gothic New";
+                    ctx.fillText(teamName[i], 125 + (935 * block), 510 + (165 * i));
+                }
+                ctx.fillStyle = "#FFFFFF";
+                ctx.font = "100px Zen Kaku Gothic New";
+                ctx.textAlign = "center";
+                //ctx.fillText(teamGame[i], 600 + (935 * block), 370 + (127 * i));
+                ctx.fillText(teamWin[i], 590 + (935 * block), 510 + (165 * i));
+                ctx.fillText(teamLose[i], 682 + (935 * block), 510 + (165 * i));
+                ctx.fillText(teamDraw[i], 774 + (935 * block), 510 + (165 * i));
+                ctx.fillText(teamPoint[i], 892 + (935 * block), 510 + (165 * i));
             }
         }
-
-        for (var i = 0; i < teamNum[block]; i++) {
-            teamGame.push(teamWin[i] + teamLose[i] + teamDraw[i]);
-            teamPoint.push(teamWin[i] * winPoint + teamLose[i] * losePoint + teamDraw[i] * drawPoint);
-        }
-
-        check(teamPoint[block], teamRate[block], teamWin[block]);
-
-        for (var i = 0; i < teamNum[block]; i++) {
-            ctx.fillStyle = "#000000";
-            ctx.font = "96px Zen Kaku Gothic New";
-            ctx.textAlign = "left";
-            ctx.fillText(teamName[block][i], 260, 368 + (127 * i));
-            ctx.fillStyle = "#FFFFFF";
-            ctx.font = "100px Zen Kaku Gothic New";
-            ctx.textAlign = "center";
-            ctx.fillText(teamGame[block][i], 1137, 370 + (127 * i));
-            ctx.fillText(teamWin[block][i], 1302, 370 + (127 * i));
-            ctx.fillText(teamLose[block][i], 1470, 370 + (127 * i));
-            ctx.fillText(teamDraw[block][i], 1638, 370 + (127 * i));
-            ctx.fillText(teamPoint[block][i], 1806, 370 + (127 * i));
-        }
+        
     });
     image.crossOrigin = "anonymous";
     image.src = imagePath;

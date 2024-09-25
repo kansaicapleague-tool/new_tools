@@ -1,0 +1,10 @@
+h1 {
+    font-family: "Noto Sans Japanese", sans-serif;
+}
+body {
+    font-family: "Noto Sans Japanese", sans-serif;
+}
+
+input[type="number"] {
+    width: 50px;
+  }

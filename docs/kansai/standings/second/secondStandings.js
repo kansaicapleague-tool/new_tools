@@ -135,7 +135,7 @@ function changeClick(block) {
                 teamPoint.push(teamWin[i] * winPoint + teamLose[i] * losePoint + teamDraw[i] * drawPoint);
             }
 
-            check(teamPoint, teamRate, teamWin);
+            check(teamPoint, teamRate, teamWin, block);
 
             for (var i = 0; i < teamNum[block]; i++) {
                 ctx.fillStyle = "#000000";
@@ -176,8 +176,8 @@ function appendOption(block) {
     }
 }
 
-function check(teamPoint, teamRate, teamWin) {
-    for (let i = 0; i < teamNum - 1; i++) {
+function check(teamPoint, teamRate, teamWin, block) {
+    for (let i = 0; i < teamNum[block] - 1; i++) {
         if (teamPoint[i] < teamPoint[i + 1]) {
             alert(Number(i + 1) + '位と' + Number(i + 2) +'位の勝ち点順位が違います。');
             return false;

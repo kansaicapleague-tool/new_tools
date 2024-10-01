@@ -1,6 +1,6 @@
 const league = "関東キャップリーグ Bブロック"
 const season = "2024年秋期";
-const teams = ["東京大学B", "サンドストームズ", "東京世田谷", "横浜国立大B", "明治NEO", "三田"];
+const teams = ["東大B", "砂嵐", "世田谷", "横国B", "明治NEO", "三田"];
 const teamLogoPath = ["../teamLogo/tokyo.png", "../teamLogo/sandstorms.jpg", "../teamLogo/setagaya.jpg", "../teamLogo/yokohama.png", "../teamLogo/meijiNEO.png" ,"../teamLogo/mita.png"];
 const teamNum = teams.length;
 

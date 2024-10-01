@@ -1,6 +1,6 @@
 const league = "関東キャップリーグ Aブロック"
 const season = "2024年秋期";
-const teams = ["青山学院大学", "湘南蓋処", "早稲田大学", "横浜国立大A", "野田キャップ", "目白蓋式野球"];
+const teams = ["青学", "湘南", "早稲田", "横国A", "野田", "目白"];
 const teamLogoPath = ["../teamLogo/aoyama.png", "../teamLogo/shonan.png", "../teamLogo/waseda.png", "../teamLogo/yokohama.png", "../teamLogo/noda.png", "../teamLogo/mejiro.jpg"];
 const teamNum = teams.length;
 

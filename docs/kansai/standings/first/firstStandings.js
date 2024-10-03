@@ -29,6 +29,7 @@ var logoObj = [];
 loadLogo();
 changeClick();
 appendOption();
+button();
 
 // 非同期処理を実行する async 関数を定義
 async function loadAndAddFont() {
@@ -69,10 +70,15 @@ function create() {
         document.write('<label>' + Number(i + 1) +'位チーム：<select id="team' + i +'"></select></label>');
         document.write('<label>勝:<input type="number" id="teamWin' + i + '" step="1" value="0"></label>');
         document.write('<label>負:<input type="number" id="teamLose' + i + '" step="1" value="0"></label>');
-        document.write('<label>分:<input type="number" id="teamDraw' + i + '" step="1" value="0"></label><br>');   
+        document.write('<label>分:<input type="number" id="teamDraw' + i + '" step="1" value="0"></label>');
+        if (i != teamNum -1) {
+            document.write('<input type="button" value="入替" id="replacement' + i + '"></input><br>');
+        } else {
+            document.write('<br>');
+        }
     }
-    document.write('<Button onClick="changeClick()">更新(入力後に押す)</Button>')
-    document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>')
+    document.write('<Button onClick="changeClick()">更新(入力後に押す)</Button>');
+    document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>');
     document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
 
@@ -222,4 +228,24 @@ function downloadClick(){
     link.href = dataURL;
     link.download = 'kansaiFirstStandings_' + year + month + day +'.jpeg'; // ファイル名を指定
     link.click();
+}
+
+function button() {
+    let replacementButton = []
+    for (let i = 0; i < teamNum - 1; i++) {
+        replacementButton[i] = document.getElementById('replacement' + i);
+        replacementButton[i].addEventListener("click", function() {
+        replacement(i, i+1);
+    });
+    }
+}
+
+function replacement(high, low) {
+    var fields = ['team', 'teamWin', 'teamLose', 'teamDraw'];
+    
+    fields.forEach(function(field) {
+        var temp = document.getElementById(field + high).value;
+        document.getElementById(field + high).value = document.getElementById(field + low).value;
+        document.getElementById(field + low).value = temp;
+    });
 }

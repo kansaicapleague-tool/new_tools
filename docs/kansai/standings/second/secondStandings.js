@@ -16,8 +16,8 @@ document.write("ブロックA<br>");
 create(0);
 document.write("ブロックB<br>");
 create(1);
-document.write(`<Button onClick="changeClick()">更新(入力後に押す)</Button>`)
-document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>')
+document.write(`<Button onClick="changeClick()">更新(入力後に押す)</Button>`);
+document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>');
 document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 const canvas = document.querySelector('.canvas'); // canvasの取得
 let imagePath = "secondStandingsBackground.jpg"; // 背景画像の取得
@@ -29,9 +29,10 @@ let day = today.getDate();
 let now = year + "年" + month + "月" + day + "日時点"; // 日付フォーマット
 let title = league + " " + season + "順位表";
 const image = new Image();
-changeClick(0);
+changeClick();
 appendOption(0);
 appendOption(1);
+button();
 
 // 非同期処理を実行する async 関数を定義
 async function loadAndAddFont() {
@@ -72,11 +73,16 @@ function create(block) {
         document.write('<label>' + Number(i + 1) +'位チーム：<select id="team' + block + i +'"></select></label>');
         document.write('<label>勝:<input type="number" id="teamWin' + block + i + '" step="1" value="0"></label>');
         document.write('<label>負:<input type="number" id="teamLose' + block + i + '" step="1" value="0"></label>');
-        document.write('<label>分:<input type="number" id="teamDraw' + block + i + '" step="1" value="0"></label><br>');   
+        document.write('<label>分:<input type="number" id="teamDraw' + block + i + '" step="1" value="0"></label>');
+        if (i != teamNum[block] -1) {
+            document.write('<input type="button" value="入替" id="replacement' + block + i + '"></input><br>');
+        } else {
+            document.write('<br>');
+        }
     }
 }
 
-function changeClick(block) {
+function changeClick() {
     image.addEventListener("load",function (){
         ctx.clearRect(0, 0, width, height)
         ctx.drawImage(image, 0, 0, width, height); // 背景画像の描画
@@ -141,20 +147,12 @@ function changeClick(block) {
                 ctx.fillStyle = "#000000";
                 ctx.font = "96px Zen Kaku Gothic New";
                 ctx.textAlign = "left";
-                if (teamName[i].length > 5) {
-                    ctx.font = "72px Zen Kaku Gothic New";
-                    ctx.fillText(teamName[i], 125 + (935 * block), 500 + (165 * i));
-                } else if (teamName[i].length > 4) {
-                    ctx.font = "84px Zen Kaku Gothic New";
-                    ctx.fillText(teamName[i], 125 + (935 * block), 505 + (165 * i));
-                } else {
-                    ctx.font = "96px Zen Kaku Gothic New";
-                    ctx.fillText(teamName[i], 125 + (935 * block), 510 + (165 * i));
-                }
+                ctx.font = "72px Zen Kaku Gothic New";
+                ctx.fillText(teamName[i], 125 + (935 * block), 500 + (165 * i));
                 ctx.fillStyle = "#FFFFFF";
                 ctx.font = "96px Zen Kaku Gothic New";
                 ctx.textAlign = "center";
-                //ctx.fillText(teamGame[i], 600 + (935 * block), 370 + (127 * i));
+                //ctx.fillText(teamGame[i], 500 + (935 * block), 510 + (165 * i));
                 ctx.fillText(teamWin[i], 590 + (935 * block), 510 + (165 * i));
                 ctx.fillText(teamLose[i], 682.5 + (935 * block), 510 + (165 * i));
                 ctx.fillText(teamDraw[i], 775 + (935 * block), 510 + (165 * i));
@@ -202,4 +200,26 @@ function downloadClick(){
     link.href = dataURL;
     link.download = 'kansaiFirstStandings_' + year + month + day +'.jpeg'; // ファイル名を指定
     link.click();
+}
+
+function button() {
+    let replacementButton = []
+    for (let block = 0; block <= 1; block++) {
+        for (let i = 0; i < teamNum[block] - 1; i++) {
+            replacementButton[i] = document.getElementById('replacement' + block + i);
+            replacementButton[i].addEventListener("click", function() {
+            replacement(block, i, i+1);
+        });
+        }
+    }
+}
+
+function replacement(block, high, low) {
+    var fields = ['team', 'teamWin', 'teamLose', 'teamDraw'];
+    
+    fields.forEach(function(field) {
+        var temp = document.getElementById(field + block + high).value;
+        document.getElementById(field + block + high).value = document.getElementById(field + block + low).value;
+        document.getElementById(field + block + low).value = temp;
+    });
 }

@@ -198,7 +198,7 @@ function downloadClick(){
     const dataURL = canvas.toDataURL("image/jpeg", 1.0);
     const link = document.createElement('a');
     link.href = dataURL;
-    link.download = 'kansaiFirstStandings_' + year + month + day +'.jpeg'; // ファイル名を指定
+    link.download = 'kansaiSecondStandings_' + year + month + day +'.jpeg'; // ファイル名を指定
     link.click();
 }
 

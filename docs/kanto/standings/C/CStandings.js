@@ -97,7 +97,7 @@ function changeClick() {
         ctx.fillText(title, width / 2 + 70, 150); // タイトルの描画
         ctx.beginPath();
         ctx.fillStyle = "#FFFFFF";
-        ctx.fillRect(405, 155, 1235, 3); // タイトル下線部の描画
+        ctx.fillRect(407, 155, 1235, 3); // タイトル下線部の描画
         ctx.shadowColor = "#000"; // 影設定リセット
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
@@ -221,7 +221,7 @@ function downloadClick(){
     const dataURL = canvas.toDataURL("image/jpeg", 1.0);
     const link = document.createElement('a');
     link.href = dataURL;
-    link.download = 'kansaiFirstStandings_' + year + month + day +'.jpeg'; // ファイル名を指定
+    link.download = 'kantoBlockCStandings_' + year + month + day +'.jpeg'; // ファイル名を指定
     link.click();
 }
 

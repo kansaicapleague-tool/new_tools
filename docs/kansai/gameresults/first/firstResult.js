@@ -13,6 +13,10 @@ const canvas = document.querySelector('.canvas'); // canvasの取得
 let imagePath = "firstResultBackground.jpg"; // 背景画像の取得
 const ctx = canvas.getContext("2d"); // ctxの取得
 const background = new Image();
+let today = new Date(); // 現在の日付を取得
+let year = today.getFullYear();
+let month = today.getMonth()+1;
+let day = today.getDate();
 let count = 0;
 var logoObj = [];
 loadLogo();

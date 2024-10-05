@@ -13,6 +13,10 @@ const canvas = document.querySelector('.canvas'); // canvasの取得
 let imagePath = "secondResultBackground.jpg"; // 背景画像の取得
 const ctx = canvas.getContext("2d"); // ctxの取得
 const background = new Image();
+let today = new Date(); // 現在の日付を取得
+let year = today.getFullYear();
+let month = today.getMonth()+1;
+let day = today.getDate();
 let count = 0;
 var logoObj = [];
 loadLogo();
@@ -163,10 +167,10 @@ function display(teamLogo) {
     ctx.drawImage(teamLogo[1], 1091, 20, 450, 450);
 }
 
-function downloadClick(){
+function downloadClick() {
     const dataURL = canvas.toDataURL("image/jpeg", 1.0);
     const link = document.createElement('a');
     link.href = dataURL;
-    link.download = 'kansaiFirstResults_' + year + month + day +'.jpeg'; // ファイル名を指定
+    link.download = 'kansaiSecondResults_' + year + month + day +'.jpeg'; // ファイル名を指定
     link.click();
 }

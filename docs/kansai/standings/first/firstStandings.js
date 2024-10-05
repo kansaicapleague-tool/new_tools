@@ -83,7 +83,7 @@ function create() {
     document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button>');
     document.write('<Button onclick=location.href="' + tweetUrl + textUrl +'">ツイート</button>');
     document.write('<Button onclick=openTwitterApp()>ツイート</button>');
-    //document.write('<Button><a href=' + tweetUrl + textUrl +' class="twitter" target="_blank">ツイート</a></Button><br>')
+    document.write('<Button><a href=' + tweetUrl + textUrl +' class="twitter" target="_blank">ツイート</a></Button><br>')
     document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
 

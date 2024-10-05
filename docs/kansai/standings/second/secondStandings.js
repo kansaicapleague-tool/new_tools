@@ -227,7 +227,7 @@ function replacement(block, high, low) {
 
 function openTwitterApp() {
     var appUrl = "twitter://post?message=";
-    let messageUrl = encodeURIComponent("【" + league + season +"順位表】\n\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
+    let messageUrl = encodeURIComponent("【" + league + season +"順位表】\nAブロック：\nBブロック：\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
     
     //アプリのURLスキームで開く
     window.location.href = appUrl + messageUrl;

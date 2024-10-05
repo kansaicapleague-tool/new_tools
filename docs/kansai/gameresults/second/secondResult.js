@@ -179,7 +179,7 @@ function downloadClick() {
 
 function openTwitterApp() {
     var appUrl = "twitter://post?message=";
-    let messageUrl = encodeURIComponent("【" + league + season +"試合結果】\n\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
+    let messageUrl = encodeURIComponent("【" + league + season +"試合結果】\n\n#団体名1\n#団体名2\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
     
     //アプリのURLスキームで開く
     window.location.href = appUrl + messageUrl;

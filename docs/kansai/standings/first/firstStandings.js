@@ -81,9 +81,9 @@ function create() {
     }
     document.write('<Button onClick="changeClick()">更新(入力後に押す)</Button>');
     document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button>');
-    document.write('<Button onclick=location.href="' + tweetUrl + textUrl +'">ツイート</button>');
-    document.write('<Button onclick=openTwitterApp()>ツイート</button>');
-    document.write('<Button><a href=' + tweetUrl + textUrl +' class="twitter" target="_blank">ツイート</a></Button><br>')
+    // document.write('<Button onclick=location.href="' + tweetUrl + textUrl +'">ツイート</button>');
+    document.write('<Button onclick=openTwitterApp()>Xに投稿(スマホアプリを開く)</button><br>');
+    // document.write('<Button><a href=' + tweetUrl + textUrl +' class="twitter" target="_blank">ツイート</a></Button><br>');
     document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 }
 
@@ -257,14 +257,8 @@ function replacement(high, low) {
 
 function openTwitterApp() {
     var appUrl = "twitter://post?message=";
-    var webUrl = "https://twitter.com/intent/tweet?text=";
     let messageUrl = encodeURIComponent("【" + league + season +"順位表】\n\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
     
-    // まずアプリのURLスキームで開く
+    //アプリのURLスキームで開く
     window.location.href = appUrl + messageUrl;
-
-    // 数秒後にウェブ版をフォールバックとして開く
-    setTimeout(function() {
-        window.location.href = webUrl + messageUrl;
-    }, 1000);
 }

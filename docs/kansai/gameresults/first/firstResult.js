@@ -1,3 +1,5 @@
+const league = "関西キャップリーグ1部"
+const season = "2024年秋季";
 const teams = ["龍谷大学A", "京都大学A", "大阪公立大A", "京都大学B", "同志社大学A", "京阪神ジェネシス"];
 const teamLogoPath = ["../../teamLogo/RuCBC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/COMUC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/doshisha.jpg", "../../teamLogo/keihanshin.jpg"];
 const teamNum = teams.length;
@@ -173,4 +175,12 @@ function downloadClick(){
     link.href = dataURL;
     link.download = 'kansaiFirstResults_' + year + month + day +'.jpeg'; // ファイル名を指定
     link.click();
+}
+
+function openTwitterApp() {
+    var appUrl = "twitter://post?message=";
+    let messageUrl = encodeURIComponent("【" + league + season +"試合結果】\n\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
+    
+    //アプリのURLスキームで開く
+    window.location.href = appUrl + messageUrl;
 }

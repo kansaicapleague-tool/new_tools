@@ -12,12 +12,13 @@ const losePoint = 0;
 
 // async 関数を呼び出す
 loadAndAddFont();
-document.write("ブロックA<br>");
+document.write("Aブロック<br>");
 create(0);
-document.write("ブロックB<br>");
+document.write("Bブロック<br>");
 create(1);
 document.write(`<Button onClick="changeClick()">更新(入力後に押す)</Button>`);
-document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button><br>');
+document.write('<Button onClick="downloadClick()">ダウンロード(最後に押す)</Button>');
+document.write('<Button onclick=openTwitterApp()>Xに投稿(スマホアプリを開く)</button><br>');
 document.write('<canvas class="canvas" width="1920" height="1080"></canvas>');
 const canvas = document.querySelector('.canvas'); // canvasの取得
 let imagePath = "secondStandingsBackground.jpg"; // 背景画像の取得
@@ -222,4 +223,12 @@ function replacement(block, high, low) {
         document.getElementById(field + block + high).value = document.getElementById(field + block + low).value;
         document.getElementById(field + block + low).value = temp;
     });
+}
+
+function openTwitterApp() {
+    var appUrl = "twitter://post?message=";
+    let messageUrl = encodeURIComponent("【" + league + season +"順位表】\n\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
+    
+    //アプリのURLスキームで開く
+    window.location.href = appUrl + messageUrl;
 }

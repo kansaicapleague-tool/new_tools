@@ -1,3 +1,5 @@
+const league = "関西キャップリーグ2部"
+const season = "2024年秋季";
 const teams = ["大阪大学", "近畿大学", "大阪公立大B", "奈良大学", "賀茂別雷", "京都大学C", "龍谷大学B", "同志社大学B"];
 const teamLogoPath = ["../../teamLogo/ouctc.jpg", "../../teamLogo/CITRUS.jpg", "../../teamLogo/COMUC.jpg", "../../teamLogo/Nara.jpg", "../../teamLogo/kamo.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/RuCBC.jpg", "../../teamLogo/doshisha.jpg"];
 const teamNum = teams.length;
@@ -173,4 +175,12 @@ function downloadClick() {
     link.href = dataURL;
     link.download = 'kansaiSecondResults_' + year + month + day +'.jpeg'; // ファイル名を指定
     link.click();
+}
+
+function openTwitterApp() {
+    var appUrl = "twitter://post?message=";
+    let messageUrl = encodeURIComponent("【" + league + season +"試合結果】\n\n#キャップ野球\n#関西キャップリーグ\n#関西キャップリーグ2024秋\n#capbaseball");
+    
+    //アプリのURLスキームで開く
+    window.location.href = appUrl + messageUrl;
 }

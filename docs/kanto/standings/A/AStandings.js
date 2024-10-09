@@ -1,5 +1,5 @@
 const league = "関東キャップリーグ Aブロック"
-const season = "2024年秋期";
+const season = "2024年秋季";
 const teams = ["青学", "湘南", "早稲田", "横国A", "野田", "目白"];
 const teamLogoPath = ["../teamLogo/aoyama.png", "../teamLogo/shonan.png", "../teamLogo/waseda.png", "../teamLogo/yokohama.png", "../teamLogo/noda.png", "../teamLogo/mejiro.jpg"];
 const teamNum = teams.length;
@@ -15,7 +15,7 @@ const losePoint = 0;
 loadAndAddFont();
 create();
 const canvas = document.querySelector('.canvas'); // canvasの取得
-let imagePath = "kantoAStandingsBackground.jpg"; // 背景画像の取得
+let imagePath = "kantoStandingsBackground.jpg"; // 背景画像の取得
 const ctx = canvas.getContext("2d"); // ctxの取得
 let today = new Date(); // 現在の日付を取得
 let year = today.getFullYear();
@@ -98,6 +98,13 @@ function changeClick() {
         ctx.beginPath();
         ctx.fillStyle = "#FFFFFF";
         ctx.fillRect(407, 155, 1235, 3); // タイトル下線部の描画
+        ctx.textAlign = "center";
+        ctx.font = "bold 36px Zen Kaku Gothic New";
+        ctx.fillText("試合数", 1137, 270);
+        ctx.fillText("勝", 1302, 270);
+        ctx.fillText("負", 1470, 270);
+        ctx.fillText("分", 1638, 270);
+        ctx.fillText("勝ち点", 1806, 270);
         ctx.shadowColor = "#000"; // 影設定リセット
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;

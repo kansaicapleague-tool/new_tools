@@ -1,6 +1,6 @@
 const league = "関東キャップリーグ Cブロック"
-const season = "2024年秋期";
-const teams = ["青学Eintracht", "東大A", "城東", "Charies", "明治"];
+const season = "2024年秋季";
+const teams = ["Eintracht青学", "東大A", "城東", "Charies", "明治"];
 const teamLogoPath = ["../teamLogo/aoyamaEintracht.jpg", "../teamLogo/tokyo.png", "../teamLogo/joto.png", "../teamLogo/charies.png", "../teamLogo/meiji.png"];
 const teamNum = teams.length;
 
@@ -83,8 +83,8 @@ function create() {
 }
 
 function changeClick() {
-    background.addEventListener("load",function (){
-        ctx.clearRect(0, 0, width, height)
+    background.addEventListener("load", function (){
+        ctx.clearRect(0, 0, width, height);
         ctx.drawImage(background, 0, 0, width, height); // 背景画像の描画
         ctx.globalCompositeOperation = "source-over"; // デフォルト
         ctx.shadowColor = "#555"; // 影設定
@@ -93,17 +93,24 @@ function changeClick() {
         ctx.shadowBlur = 5;
         ctx.fillStyle = "#FFFFFF";
         ctx.font = "65px Zen Kaku Gothic New";
-        ctx.textAlign = "center"
+        ctx.textAlign = "center";
         ctx.fillText(title, width / 2 + 70, 150); // タイトルの描画
         ctx.beginPath();
         ctx.fillStyle = "#FFFFFF";
         ctx.fillRect(407, 155, 1235, 3); // タイトル下線部の描画
+        ctx.textAlign = "center";
+        ctx.font = "bold 36px Zen Kaku Gothic New";
+        ctx.fillText("試合数", 1137, 270);
+        ctx.fillText("勝", 1302, 270);
+        ctx.fillText("負", 1470, 270);
+        ctx.fillText("分", 1638, 270);
+        ctx.fillText("勝ち点", 1806, 270);
         ctx.shadowColor = "#000"; // 影設定リセット
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 0;
         ctx.font = "50px Zen Kaku Gothic New";
-        ctx.textAlign = "right"
+        ctx.textAlign = "right";
         ctx.fillText(now, width - 20, 1070); // 現在の日付の描画
 
         let teamName = [];

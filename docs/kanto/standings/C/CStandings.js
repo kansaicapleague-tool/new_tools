@@ -1,7 +1,7 @@
 const league = "関東キャップリーグ Cブロック"
 const season = "2024年秋季";
-const teams = ["Eintracht青学", "東大A", "城東", "Charies", "明治"];
-const teamLogoPath = ["../teamLogo/aoyamaEintracht.jpg", "../teamLogo/tokyo.png", "../teamLogo/joto.png", "../teamLogo/charies.png", "../teamLogo/meiji.png"];
+const teams = ["Eintracht青学", "東大A", "城東", "Charles", "明治"];
+const teamLogoPath = ["../teamLogo/aoyamaEintracht.jpg", "../teamLogo/tokyo.png", "../teamLogo/joto.png", "../teamLogo/charles.png", "../teamLogo/meiji.png"];
 const teamNum = teams.length;
 
 const width = 1920;

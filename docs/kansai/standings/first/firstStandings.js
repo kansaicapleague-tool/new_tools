@@ -1,7 +1,7 @@
-const league = "関西キャップリーグ1部"
-const season = "2024年秋季";
-const teams = ["龍谷大学A", "京都大学A", "大阪公立大A", "京都大学B", "同志社大学A", "京阪神ジェネシス"];
-const teamLogoPath = ["../../teamLogo/RuCBC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/COMUC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/doshisha.jpg", "../../teamLogo/keihanshin.jpg"];
+const league = "関西キャップリーグA1部"
+const season = "2025年春季";
+const teams = ["龍谷大学", "京阪神ジェネシス", "京都大学", "大阪公立大学", "奈良大学", "大阪大学"];
+const teamLogoPath = ["../../teamLogo/RuCBC.jpg", "../../teamLogo/keihanshin.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/COMUC.jpg", "../../teamLogo/Nara.jpg", "../../teamLogo/ouctc.jpg"];
 const teamNum = teams.length;
 
 const width = 1920;
@@ -102,7 +102,7 @@ function changeClick() {
         ctx.fillText(title, width / 2 + 70, 150); // タイトルの描画
         ctx.beginPath();
         ctx.fillStyle = "#FFFFFF";
-        ctx.fillRect(425, 155, 1210, 3); // タイトル下線部の描画
+        ctx.fillRect(380, 155, 1300, 3); // タイトル下線部の描画
         ctx.shadowColor = "#000"; // 影設定リセット
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;

@@ -1,7 +1,7 @@
-const league = "関西キャップリーグ1部"
-const season = "2024年秋季";
-const teams = ["龍谷大学A", "京都大学A", "大阪公立大A", "京都大学B", "同志社大学A", "京阪神ジェネシス"];
-const teamLogoPath = ["../../teamLogo/RuCBC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/COMUC.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/doshisha.jpg", "../../teamLogo/keihanshin.jpg"];
+const league = "関西キャップリーグA1部"
+const season = "2025年春季";
+const teams = ["龍谷大学", "京阪神ジェネシス", "京都大学", "大阪公立大学", "奈良大学", "大阪大学"];
+const teamLogoPath = ["../../teamLogo/RuCBC.jpg", "../../teamLogo/keihanshin.jpg", "../../teamLogo/KUCtC.jpg", "../../teamLogo/COMUC.jpg", "../../teamLogo/Nara.jpg", "../../teamLogo/ouctc.jpg"];
 const teamNum = teams.length;
 
 const width = 1920;

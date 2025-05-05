@@ -3,7 +3,7 @@ const season = "2025年春季";
 // const teams = [["大阪大学", "近畿大学", "大阪公立大B", "奈良大学"],["賀茂別雷", "京都大学C", "龍谷大学B", "同志社大学B"]];
 // const teamNum = [teams[0].length, teams[1].length];
 const teams = ["同志社大学", "近畿大学", "大和大学洛中洛蓋連合","United Nagoya"]
-const teamLogoPath = ["../../teamLogo/doshisha.jpg", "../../teamLogo/CITRUS.jpg", "../../teamLogo/logomark.jpg", "../../teamLogo/unitedNagoya.jpg"]
+const teamLogoPath = ["../../teamLogo/doshisha.jpg", "../../teamLogo/CITRUS.jpg", "../../teamLogo/yamato_rakuchu.jpg", "../../teamLogo/unitedNagoya.jpg"]
 const teamNum = [teams.length]
 
 const width = 1920;

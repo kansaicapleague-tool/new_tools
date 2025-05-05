@@ -1,7 +1,7 @@
 const league = "関西キャップリーグA２部"
 const season = "2025年春季";
 const teams = ["同志社大学", "近畿大学", "大和大学洛中洛蓋連合","United Nagoya"]
-const teamLogoPath = ["../../teamLogo/doshisha.jpg", "../../teamLogo/CITRUS.jpg", "../../teamLogo/logomark.jpg", "../../teamLogo/unitedNagoya.jpg"]
+const teamLogoPath = ["../../teamLogo/doshisha.jpg", "../../teamLogo/CITRUS.jpg", "../../teamLogo/yamato_rakuchu.jpg", "../../teamLogo/unitedNagoya.jpg"]
 const teamNum = teams.length;
 
 const width = 1920;
